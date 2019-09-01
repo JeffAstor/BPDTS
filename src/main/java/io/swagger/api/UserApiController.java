@@ -66,7 +66,7 @@ public class UserApiController implements UserApi {
 
     private User[] getUserListFromURL(String url_string, ObjectMapper mapper)
     {
-        String str;
+        String str=null;
         try {
 
             URL url = new URL(url_string);
@@ -90,9 +90,9 @@ public class UserApiController implements UserApi {
 
             return mapper.readValue(str, User[].class);
         } catch (MalformedURLException ex) {
-            ex.printStackTrace();
+            log.error("getUserListFromURL: malformed url", ex);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            log.error("getUserListFromURL: request failed with ioexception", ex);
         }
 
 
