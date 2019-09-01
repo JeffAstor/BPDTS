@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,9 @@ public class UserApiController implements UserApi {
 
     private final HttpServletRequest request;
     private final String url_default = "http://bpdts-test-app.herokuapp.com";
+
+    @Autowired
+    private RestTemplate restTemplate = getRestTemplate();
 
     @org.springframework.beans.factory.annotation.Autowired
     public UserApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -70,7 +74,7 @@ public class UserApiController implements UserApi {
     private User[] getUserListFromURL(String url_string)
     {
         User[] ua;
-        RestTemplate restTemplate = getRestTemplate();
+
 
         ResponseEntity<User[]> responseEntity = restTemplate.getForEntity(url_string,User[].class);
         ua = responseEntity.getBody();
@@ -127,7 +131,7 @@ public class UserApiController implements UserApi {
                                 for (User usr2 : usr_inloc_array) {
                                     long id_2 = usr2.getId();
 
-                                    // comp with getId() failed, hence the 2 id vars
+                                    // comp with getId() failed..., hence the 2 id vars
                                     if (id_1==id_2) {
                                         dupe = true;  // duplicate, don't add
                                         break;
