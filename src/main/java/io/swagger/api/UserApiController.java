@@ -2,12 +2,6 @@ package io.swagger.api;
 
 
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-//import org.json.simple.JSONObject;
-
-import java.net.MalformedURLException;
 import io.swagger.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
@@ -22,9 +16,10 @@ import org.springframework.web.client.RestTemplate;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.context.annotation.Bean;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-09-01T10:41:34.364Z")
 
@@ -42,6 +37,12 @@ public class UserApiController implements UserApi {
     public UserApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+
     }
 
     private  double getDistanceFrom(double LongA, double LatA,double LongB, double LatB)
@@ -69,7 +70,7 @@ public class UserApiController implements UserApi {
     private User[] getUserListFromURL(String url_string)
     {
         User[] ua;
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = getRestTemplate();
 
         ResponseEntity<User[]> responseEntity = restTemplate.getForEntity(url_string,User[].class);
         ua = responseEntity.getBody();
