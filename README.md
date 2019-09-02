@@ -19,3 +19,8 @@ http://localhost:8080/
 
 YAML API definition is in swagger_def folder.
 
+I have a test version hosted on a Raspberry PI.  The following link
+should work, it's my router's IP; if the router reboots its address will change.
+
+http://2.97.96.152:8080/
+
