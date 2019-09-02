@@ -1,5 +1,6 @@
 io\swagger\configuration\CustomInstantDeserializer$FromDecimalArguments.class
 io\swagger\configuration\CustomInstantDeserializer$1.class
+io\swagger\api\InputException.class
 io\swagger\configuration\CustomInstantDeserializer$10.class
 io\swagger\configuration\HomeController.class
 io\swagger\api\UserApiController.class

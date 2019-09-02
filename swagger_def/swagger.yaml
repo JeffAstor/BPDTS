@@ -1,0 +1,80 @@
+---
+swagger: "2.0"
+info:
+  description: A very simple API to preform requested task.  My API talks to your API.
+  version: "1"
+  title: BPDTS API Test Interface
+  contact:
+    email: rega@jeffastor-data.com
+host: virtserver.swaggerhub.com
+basePath: /firetripper_hometeam/DWPCodeTest/1
+schemes:
+- https
+paths:
+  /user/findUsersInOrNear:
+    get:
+      summary: Finds users listed as living in the location; and any users who's current coordinates are within range.
+      description: Finds users who are currently within a defined distance, in miles, from the supplied GPS coordinates, and users who are listed as residing in the supplied location.  GPS cordinates are in signed degrees format; Latitudes range from -90 to 90.Longitudes range from -180 to 180. Location and coordinates are assumed to, but do not have to match.   Example Data, London, Longitude -0.118072, Latitude 51.5074
+      operationId: findUsersInOrNear
+      produces:
+      - application/json
+      parameters:
+      - name: longitude
+        in: query
+        description: longitude in signed decimal
+        required: true
+        type: number
+        format: double
+      - name: latitude
+        in: query
+        description: latitude in signed decimal
+        required: true
+        type: number
+        format: double
+      - name: distance
+        in: query
+        description: Maximum distance from coordinates in miles. The search range.
+        required: true
+        type: number
+        format: double
+      - name: location
+        in: query
+        description: User home location.  Example, London
+        required: false
+        type: string
+      responses:
+        200:
+          description: Successful Respone
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        400:
+          description: Invalid coordinates supplied
+        404:
+          description: Users not found
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      ip_address:
+        type: string
+      latitude:
+        type: number
+        format: double
+        description: latitude in signed DDS
+      longitude:
+        type: number
+        format: double
+        description: longitude in signed DDS
+    xml:
+      name: User
